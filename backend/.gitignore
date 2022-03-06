@@ -1,0 +1,5 @@
+# Hiding environment variables
+.env
+
+# Hiding node modules, please check the package.json file for the list of dependencies
+/node_modules
