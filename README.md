@@ -7,7 +7,7 @@ In this project directory, you will find two server folders, one to run the fron
 
 ### `.env` file setup
 
-Under the node server folder, you will need to add environment variables for the `PORT` you want to run the server (5050). <br/>
+Under the node server folder, you will need to add environment variables for the `PORT` you want to run the server (3001). <br/>
 
 You will also need to specify the `USERNAME`, `PASSWORD` and `DATABASE` to which you will use to authenticate and gain access to MongoDB. A `SECRET` which will verify you and sign a JWT to gain access to protected routes.
 
@@ -38,7 +38,7 @@ The page will reload if you make edits. You will also see any lint errors in the
 
 Launches the back-end node server to activate the db models, routes, protected routes, JWT activation, validation, and MongoDB connection.<br />
 
-Run `node server.js` within the node server folder to spin up the server on port 5050. [http://localhost:5050](http://localhost:5050).
+Run `node server.js` within the node server folder to spin up the server on port 5050. [http://localhost:3001](http://localhost:3001).
 
 ## Libraries/Technologies used
 `axios`
