@@ -1,5 +1,5 @@
 const initialState = {
-    user: {},
+    token: "",
     isLoggedIn: false
 }
 
@@ -7,28 +7,21 @@ export const loginReducer = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case "LOG_IN":
+        case "LOGIN_SUCCESSFUL":
             localStorage.setItem('token', payload.token);
             return {
                 ...state,
-                user: payload.user,
+                token: payload.token,
                 isLoggedIn: true
             }
         case "LOG_OUT":
             localStorage.removeItem('token');
             return {
                 ...state,
-                user: {},
+                token: '',
                 isLoggedIn: false
             }
-        case "LOG_IN_UNSUCCESSFUL":
-            localStorage.removeItem('token');
-            return {
-                ...state,
-                user: {},
-                isLoggedIn: false
-            }
-        case "LOG_OUT_UNSUCCESSFUL":
+        case "LOGIN_UNSUCCESSFUL":
             localStorage.removeItem('token');
             return {
                 ...state,

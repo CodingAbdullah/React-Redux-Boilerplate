@@ -1,44 +1,51 @@
-export const loginAction = (credentials) => {
+import { loginService, registerService } from '../service/authService';
+
+export const loginAction = (credentials) => (dispatch) => {
     const { email, password } = credentials;
 
-    const information = JSON.stringify({ email, password });
+    return loginService(email, password).then(response => {
+        const status = response.status;
+        const data = response.data;
 
-        const options = {
-            method: 'POST',
-            headers : {
-                'content-type': 'application/json'
-            },
-            body: information
-        }
-
-        fetch("http://localhost:3001/login", options)
-        .then(response => response.json())
-        .then(res => {
-            if (res.status == 200){
-                return {
-                    type: "LOG_IN",
-                    payload: {
-                        token: res.token,
-                        user: res.userInfo,
-                        msg: "Logged in"
-                    }
-                }
-            }
-            else {
-                return {
-                    type: "LOG_IN_UNSUCCESSFUL",
-                    payload: {
-                        msg: "Cannot Login"
-                    }
-                }
-            }
-        })
-        .catch(err => {
-            return {
-                type: "LOG_IN_UNSUCCESSFUL",
+        if (status === 201){
+            dispatch({
+                type: 'LOGIN_SUCCESSFUL',
                 payload: {
-                    msg: "Cannot Login " + err
+                    token: data.token
                 }
-            }
+            });
+
+            return Promise.resolve();
+        }
+        else {
+            dispatch({
+                type: 'LOGIN_UNSUCCESSFUL'
+            });
+
+            return Promise.reject();
+        }
+    })
+    .catch(() => {
+        dispatch({
+            type: 'LOGIN_UNSUCCESSFUL'
         });
+
+        return Promise.reject();
+    })
+}
+
+export const registerAction = (credentials) => (dispatch) => {
+    const { firstName, lastName, age, email, password, gender } = credentials;
+
+    return registerService(firstName, lastName, age, email, password, gender).then(response => {
+        if (response.status === 201){
+            return Promise.resolve();
+        }
+        else {
+            return Promise.reject();
+        }
+    })
+    .catch(() => {
+        return Promise.reject();
+    })
 }

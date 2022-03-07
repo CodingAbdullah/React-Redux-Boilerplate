@@ -1,49 +1,32 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
+import { useNavigate, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../../redux/actions/authActions';
 import './login.css';
 
 const Login = () => {
 
+    const loginStatus = useSelector(state => state.authorization.isLoggedIn);
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
     const [msg, updateAlertMsg] = useState({
         message: '',
         status: ''  
-      });
+    });
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const formHandler = (e) => {
         e.preventDefault();
         e.target.reset();
 
-        const options = {
-            method: 'POST',
-            'content-type': 'application/json',
-        }
-
-        axios.post("http://localhost:3001/login", { email, password }, options)
-        .then(response => {
-            console.log(response);
-
-            if (response.status !== 201) {
-                updateAlertMsg((prevState) => {
-                  return {
-                    ...prevState,
-                    message: "User could not login",
-                    status: 'danger'
-                  }
-                });
-                navigate("/login");
-            }
-            else {
-                localStorage.setItem('token', response.data.token);
-                navigate("/");
-            }
+        dispatch(loginAction({ email, password }))
+        .then(() => {
+            console.log("login was great!");
+            navigate("/");
         })
-        .catch(err => {
-            console.log(err);
+        .catch(() => {
             updateAlertMsg((prevState) => {
                 return {
                   ...prevState,
@@ -59,10 +42,10 @@ const Login = () => {
         <div class={`alert alert-${msg.status}`}>
           {msg.message}
         </div>
-      )
+    );
   
-    if (localStorage.getItem('token')) {
-        navigate("/");
+    if (loginStatus) {
+        return <Navigate to="/" />
     }
     else {
         return (
