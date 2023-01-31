@@ -1,24 +1,26 @@
 import axios from 'axios';
 
-const address = "http://localhost:3001";
-
-export const loginService = (email, password) => {
-    const options = {
+const login = async (user) => {
+    let options = {
         method: 'POST',
-        mode: 'cors',
-        'content-type': 'application/json'
-    };
-
-    return axios.post(address + "/login", { email, password }, options);
-}
-
-export const registerService = ( firstName, lastName, age, email, password, gender ) => {
-
-    const options = {
-        method: 'POST',
-        mode: 'cors',
-        'content-type': 'application/json'
+        body : JSON.stringify(user)
     }
+    
+    const response = await axios.post("http://localhost:5000/login", options);
 
-    return axios.post(address + '/register', { firstName, lastName, age, email, password, gender }, options);
+    // Set localStorage value to localStorage along with token
+    localStorage.setItem('user', JSON.stringify(response.data));
+
+    return response.data;
 }
+
+const logout = () => {
+    localStorage.removeItem('user'); // Remove user from localStorage;
+}
+
+const authService = {
+    login,
+    logout
+}
+
+export default authService;

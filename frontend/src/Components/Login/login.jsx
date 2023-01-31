@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../redux/reducers/authReducer';
 import './login.css';
 
 const Login = () => {
-    const loginStatus = useSelector(state => state.auth.user);
+    const userSelector = useSelector(state => state.auth.user);
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
+
     const [msg, updateAlertMsg] = useState({
         message: '',
         status: ''  
@@ -15,9 +17,27 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (userSelector !== null) {
+            navigate("/")
+        }
+    }, [userSelector, navigate])
+
     const formHandler = (e) => {
         e.preventDefault();
         e.target.reset();
+
+        // Dispatch login action 
+        dispatch(login({ email, password }));
+        if (userSelector === null && !userSelector.isLoading && !userSelector.isSuccess) {
+            updateAlertMsg((prevState) => {
+                return {
+                    ...prevState,
+                    message: "Invalid credentials",
+                    status: 'danger'
+                }
+            });
+        }
     }
 
     const message = (
@@ -28,7 +48,7 @@ const Login = () => {
   
     return (
         <div className="Login">
-            {message}
+            { message }
             <h1>Login Form</h1>
             <form onSubmit={formHandler}>
                 <div className="input-group mb-3">

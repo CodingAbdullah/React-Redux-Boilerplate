@@ -25,7 +25,6 @@ exports.loginController = (req, res) => {
                 .then(check => {
                     if (check){    
                         jwt.sign({ user }, process.env.SECRET, { expiresIn: 3600 }, (err, token) => {
-                            console.log(token);
                             if (err) {
                                 res.status(400).json({
                                     msg: "There is an error creatin JWT token" + err
@@ -35,7 +34,7 @@ exports.loginController = (req, res) => {
                                 res.status(201).json({
                                     msg: 'Passwords match!',
                                     token: token,
-                                    userInfo: {
+                                    user: {
                                         firstName: user.firstName,
                                         lastName: user.lastName,
                                         email: user.email

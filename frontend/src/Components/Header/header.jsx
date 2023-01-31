@@ -1,38 +1,49 @@
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+    const userSelector = useSelector(state => state.auth.user);
 
-    let headerRender = (
-        <div class="col-md-3 text-end">
-        <Link to="/login"><button type="button" className="btn btn-outline-success me-2">Login</button></Link>
-        <Link to="/signup"><button type="button" className="btn btn-primary">Sign-up</button></Link>
-        </div>
-    )
-    const navigate = useNavigate();
-
-    const logoutHandler = () => {
-        localStorage.removeItem('token');
-        navigate("/login");
-    }
-
-    if (localStorage.getItem('token')){
-        headerRender = (
-            <div class="col-md-3 text-end">
-                <Link onClick={logoutHandler} to="/login"><button type="button" className="btn btn-primary">Logout</button></Link>
-            </div>
-        )
-    }
     return (
-        <div className="container">
-            <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <Link to="/"><li><a href="/" className="nav-link px-2 link-secondary">Home</a></li></Link>
-            </ul>
-           {headerRender}
-            </header>
-        </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/">Demo</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        {
+                            userSelector === null ? 
+                                <>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/login">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/signup">Sign Up</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="/signup">Posts</a>
+                                    </li>
+                                </>
+                            :
+                                <>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout">Logout</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="/signup">Sign Up</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/posts">Posts</a>
+                                    </li>
+                                </>
+                        }
+                    </ul>
+                </div>
+            </nav>
     );
 }
 

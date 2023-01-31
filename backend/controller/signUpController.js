@@ -33,9 +33,7 @@ exports.signUpController = (req, res) => {
                                 });  
 
                                 newUser.save()
-                                .then(data => {
-                                    console.log('Successfully created and saved record. ' + data);
-                        
+                                .then(data => {                        
                                     res.status(201).json({
                                         msg: data
                                     });
