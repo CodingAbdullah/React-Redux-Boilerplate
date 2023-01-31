@@ -1,5 +1,9 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from 'redux-thunk';
-import { rootReducer } from '../reducers/rootReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../reducers/authReducer';
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+// Configure store for global state management
+export const store = configureStore({
+    reducer : {
+        auth: authReducer
+    }
+});

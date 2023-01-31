@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 
 export const auth = (req, res, next) => {
 
-    if (req.headers.authorization) {
-        const token = req.headers.authorization.split(" ")[1];
+    if (req.body.headers.authorization) {
+        const token = req.body.headers.authorization.split(" ")[1];
 
         jwt.verify(token, process.env.SECRET, (err, result) => {
             if (err){
