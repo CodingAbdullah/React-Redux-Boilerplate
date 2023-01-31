@@ -5,6 +5,7 @@ const cors = require("cors");
 const URI = "mongodb+srv://owner:" + process.env.PASSWORD + "@ai-user-database.zjlsn9q.mongodb.net/?retryWrites=true&w=majority";
 const signUpRouter = require("./Routes/signUpRoutes");
 const loginRouter = require("./Routes/loginRoutes");
+const postsRouter = require('./Routes/postsRoute');
 
 const server = express();
 
@@ -21,3 +22,4 @@ server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 server.use("/", signUpRouter);
 server.use("/", loginRouter);
+server.use("/", postsRouter);

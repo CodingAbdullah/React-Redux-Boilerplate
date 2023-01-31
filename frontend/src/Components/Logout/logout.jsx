@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { logout } from '../../redux/reducers/authReducer';
 
 const Logout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userSelector = useSelector(state => state.auth.user);
 
     useEffect(() => {
-        dispatch(logout()); // Dispatch logout on mount
+        if (userSelector === null) {
+            navigate("/"); // There is no logged user, navigate back to home
+        } 
+        else {
+            dispatch(logout()); // Dispatch logout on mount
+        }   
     }, [])
 
     return (

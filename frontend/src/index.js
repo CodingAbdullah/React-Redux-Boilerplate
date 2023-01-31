@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../src/redux/store/store';
 import Logout from './Components/Logout/logout';
+import Posts from './Components/Posts/posts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,8 @@ root.render(
           <Route path="/login" exact element={<Login />}></Route>
           <Route path="/logout" exact element={<Logout />}></Route>
           <Route path="/signup" exact element={<Signup />}></Route>
+          <Route path="/posts" exact element={<Posts />}></Route>
+          <Route path="*" exact element={<Home />}></Route>
         </Routes>
       </Router>
     </Provider>
