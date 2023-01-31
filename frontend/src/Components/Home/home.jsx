@@ -1,17 +1,11 @@
-import { Navigate } from 'react-router-dom';
-import './home.css';
+import React from 'react';
 
 const Home = () => {
-
-    if (!localStorage.getItem('token')){
-        return <Navigate to="/login" />
-    }
-    else 
-        return (
-            <div className="home">
-                <h1>Welcome Home!</h1>
-            </div>
-        )
-    }
+    return (
+        <div className='home-page'>
+            <h1>Home Page</h1>
+        </div>
+    )
+}
 
 export default Home;

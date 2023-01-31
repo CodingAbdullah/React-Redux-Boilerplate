@@ -1,4 +1,4 @@
-# React-Redux-Node-JWT Boilerplate
+# React-Redux Boilerplate
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -36,9 +36,9 @@ The page will reload if you make edits. You will also see any lint errors in the
 
 ### `node server.js` to run the node server
 
-Launches the back-end node server to activate the db models, routes, protected routes, JWT activation, validation, and MongoDB connection.<br />
+Launches the back-end node server to activate the db models, routes, protected routes, JWT activation, validation, and MongoDB connection. <br />
 
-Run `node server.js` within the node server folder to spin up the server on port 5000. [http://localhost:3001](http://localhost:5000).
+Run `node server.js` within the node server folder to spin up the server on port 5000. [http://localhost:5000](http://localhost:5000).
 
 ## Libraries/Technologies used
 `axios`
@@ -54,7 +54,7 @@ Run `node server.js` within the node server folder to spin up the server on port
 `react-router`
 `react-router-dom`
 `react-redux`
-`@redux/toolkit`
+`@reduxjs/toolkit`
 
 ## Learn More
 

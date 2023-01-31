@@ -1,10 +1,10 @@
 import './signup.css';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { registerAction } from '../../redux/actions/authActions';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const Signup = () => {
-
     const [firstName, updateFirstName] = useState("");
     const [lastName, updateLastName] = useState("");
     const [email, updateEmail] = useState("");
@@ -15,14 +15,26 @@ const Signup = () => {
       message: '',
       status: ''  
     });
-    
-    const dispatch = useDispatch();
 
+    const userSelector = useSelector(state => state.auth.user);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (userSelector !== null) {
+          navigate("/");
+      }
+    }, [userSelector, navigate])
+    
     const formHandler = (e) => {
       e.preventDefault();
       e.target.reset();
+    
+      let options = {
+        method: 'POST',
+        body : JSON.stringify({ firstName, lastName, email, password, age, gender })
+      }
 
-      dispatch(registerAction({firstName, lastName, age, email, password, gender}))
+      axios.post("http://localhost:5000/signup", options)
       .then(() => {
           updateAlertMsg((prevState) => {
             return {
@@ -79,6 +91,6 @@ const Signup = () => {
         </form>
       </div>
     );
-}
+  }
 
 export default Signup;
