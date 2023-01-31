@@ -21,7 +21,6 @@ root.render(
           <Route path="/signup" exact element={<Signup />}></Route>
         </Routes>
       </Router>
-      <Home />
     </Provider>
   </React.StrictMode>
 );

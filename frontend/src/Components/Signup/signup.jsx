@@ -9,8 +9,7 @@ const Signup = () => {
     const [lastName, updateLastName] = useState("");
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
-    const [age, updateAge] = useState(0);
-    const [gender, updateGender] = useState("male");
+
     const [msg, updateAlertMsg] = useState({
       message: '',
       status: ''  
@@ -31,10 +30,10 @@ const Signup = () => {
     
       let options = {
         method: 'POST',
-        body : JSON.stringify({ firstName, lastName, email, password, age, gender })
+        body : JSON.stringify({ firstName, lastName, email, password })
       }
 
-      axios.post("http://localhost:5000/signup", options)
+      axios.post("http://localhost:5000/register", options)
       .then(() => {
           updateAlertMsg((prevState) => {
             return {
@@ -75,17 +74,6 @@ const Signup = () => {
             </div>
             <div className="mb-3">
               <input type="password" onChange={(e) => updatePassword(e.target.value)} className="form-control" placeholder='Password' />
-            </div>
-            <div className="mb-3">
-              <input type="number" onChange={(e) => updateAge(e.target.value)} className="form-control" placeholder='Age' />
-            </div>
-            <div class="mb-3">
-                <input class="form-check-input" id="male-button" onChange={() => updateGender("male")} type="radio" name="gender" value="male" checked />
-                <label style={{marginLeft: '1.5rem'}} class="form-check-label">Male</label>
-            </div>
-            <div>
-                <input class="form-check-input" id="female-button" onChange={() => updateGender("female")} type="radio" name="gender" value="female" />
-                <label style={{marginLeft: '1.5rem'}} class="form-check-label">Female</label>
             </div>
             <input style={{marginTop: '1.5rem'}} type="submit" className="btn btn-primary" value="Submit" />
         </form>

@@ -2,24 +2,22 @@ require("dotenv").config({ path: '.env' });
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
-const URI = "mongodb+srv://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@cluster0.sftye.mongodb.net/" + process.env.DATABASE + "?retryWrites=true&w=majority";
+const URI = "mongodb+srv://owner:" + process.env.PASSWORD + "@ai-user-database.zjlsn9q.mongodb.net/?retryWrites=true&w=majority";
 const signUpRouter = require("./Routes/signUpRoutes");
 const loginRouter = require("./Routes/loginRoutes");
 
 const server = express();
 
-mongoose.connect(URI, {
-    dbName: process.env.DATABASE
-})
+mongoose.connect(URI)
 .then(() => console.log("Connection to database successful"))
 .catch(err => console.log("Error connecting to database " + err));
 
-server.listen(process.env.PORT || 3001, () => {
-    console.log("Listening to PORT " + process.env.PORT || 3001);
+server.listen(process.env.PORT || 5001, () => {
+    console.log("Listening to PORT " + process.env.PORT || 5001);
 });
 
-server.use(express.json());
+server.use(express.json({ extended: false }));
+server.use(express.urlencoded({ extended: false }));
 server.use(cors());
 server.use("/", signUpRouter);
 server.use("/", loginRouter);

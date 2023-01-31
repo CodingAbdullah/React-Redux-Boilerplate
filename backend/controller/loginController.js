@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 exports.loginController = (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = JSON.parse(req.body.body);
 
     User.findOne({
         email: email

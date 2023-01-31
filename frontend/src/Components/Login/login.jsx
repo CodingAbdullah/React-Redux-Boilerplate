@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './login.css';
 
 const Login = () => {
-    const loginStatus = useSelector(state => state.authorization.isLoggedIn);
+    const loginStatus = useSelector(state => state.auth.user);
     const [email, updateEmail] = useState("");
     const [password, updatePassword] = useState("");
     const [msg, updateAlertMsg] = useState({

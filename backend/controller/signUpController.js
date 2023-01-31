@@ -2,7 +2,7 @@ const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 
 exports.signUpController = (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password } = JSON.parse(req.body.body);
 
     User.findOne({
         email: email
